@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
-    "Method": "GetCart",
+    "Method": "GetCartByUser",
     "RelativePath": "api/Cart",
     "HttpMethod": "GET",
     "IsController": true,
@@ -28,23 +28,34 @@
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
     "Method": "Clear",
-    "RelativePath": "api/Cart/clear",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
-    "Method": "Remove",
-    "RelativePath": "api/Cart/remove/{id}",
+    "RelativePath": "api/Cart/clear/{userId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
+    "Method": "Remove",
+    "RelativePath": "api/Cart/remove/{itemId}/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "itemId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -54,13 +65,13 @@
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
     "Method": "Update",
-    "RelativePath": "api/Cart/update/{id}",
+    "RelativePath": "api/Cart/update/{itemId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "itemId",
         "Type": "System.Int32",
         "IsRequired": true
       },

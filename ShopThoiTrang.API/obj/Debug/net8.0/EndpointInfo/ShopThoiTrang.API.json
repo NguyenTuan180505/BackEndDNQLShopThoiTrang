@@ -5,18 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Cart": {
-      "get": {
-        "tags": [
-          "Cart"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Cart/user/{userId}": {
       "get": {
         "tags": [
@@ -32,6 +20,18 @@
               "format": "int32"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Cart": {
+      "get": {
+        "tags": [
+          "Cart"
         ],
         "responses": {
           "200": {
@@ -71,14 +71,14 @@
         }
       }
     },
-    "/api/Cart/update/{id}": {
+    "/api/Cart/update/{itemId}": {
       "put": {
         "tags": [
           "Cart"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "itemId",
             "in": "path",
             "required": true,
             "schema": {
@@ -113,14 +113,23 @@
         }
       }
     },
-    "/api/Cart/remove/{id}": {
+    "/api/Cart/remove/{itemId}/{userId}": {
       "delete": {
         "tags": [
           "Cart"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "schema": {
@@ -136,10 +145,21 @@
         }
       }
     },
-    "/api/Cart/clear": {
+    "/api/Cart/clear/{userId}": {
       "delete": {
         "tags": [
           "Cart"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -213,6 +233,10 @@
       "AddCartRequest": {
         "type": "object",
         "properties": {
+          "userID": {
+            "type": "integer",
+            "format": "int32"
+          },
           "productID": {
             "type": "integer",
             "format": "int32"
@@ -227,6 +251,10 @@
       "UpdateCartRequest": {
         "type": "object",
         "properties": {
+          "userID": {
+            "type": "integer",
+            "format": "int32"
+          },
           "quantity": {
             "type": "integer",
             "format": "int32"
