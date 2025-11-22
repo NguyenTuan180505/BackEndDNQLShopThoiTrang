@@ -2,7 +2,7 @@
 using ShopThoiTrang.API.Data;
 using ShopThoiTrang.API.Models;
 
-namespace ShopThoiTrang.API.Repositories
+namespace ShopThoiTrang.API.Repositories.Impl
 {
     public class ProductRepository : IProductRepository
     {

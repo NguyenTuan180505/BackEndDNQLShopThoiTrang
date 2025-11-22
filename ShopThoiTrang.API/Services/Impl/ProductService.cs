@@ -1,7 +1,7 @@
 ﻿using ShopThoiTrang.API.Models;
 using ShopThoiTrang.API.Repositories;
 
-namespace ShopThoiTrang.API.Services
+namespace ShopThoiTrang.API.Services.Impl
 {
     public class ProductService : IProductService
     {
