@@ -42,5 +42,27 @@ namespace ShopThoiTrang.API.Repositories
                 .Include(p => p.Category)
                 .FirstOrDefaultAsync(p => p.ProductID == id);
         }
+
+        // THÊM HÀM NÀY
+        public void UpdateProduct(Product product)
+        {
+            _context.Products.Update(product);
+        }
+
+        public async Task AddAsync(Product product)
+        {
+            await _context.Products.AddAsync(product);
+        }
+
+        public void DeleteProduct(Product product)
+        {
+            product.IsActive = false;
+            _context.Products.Update(product);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }
