@@ -170,3 +170,6 @@ D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\obj\Debug\net8.0\refint\ShopThoiTr
 D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\obj\Debug\net8.0\ShopThoiTrang.API.pdb
 D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\obj\Debug\net8.0\ShopThoiTrang.API.genruntimeconfig.cache
 D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\obj\Debug\net8.0\ref\ShopThoiTrang.API.dll
+D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\obj\Debug\net8.0\ShopThoiTrang.API.sourcelink.json
+D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\code C\ShopThoiTrang.API\ShopThoiTrang.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
