@@ -8,11 +8,11 @@ public interface ICartService
     Task<Cart> GetCartAsync(int userId);
     Task<Cart> AddToCartAsync(int userId, int productId, int quantity);
     //jWT
-    //Task<Cart> UpdateItemAsync(int itemId, int quantity);
-    Task<Cart> UpdateItemAsync(int cartItemId, int quantity, int userId);
+    Task<Cart> UpdateItemAsync(int itemId, int quantity);
+
     //JWT
-    //Task<bool> RemoveItemAsync(int itemId);
-    Task<bool> RemoveItemAsync(int cartItemId, int userId);
+    Task<bool> RemoveItemAsync(int itemId);
+
     Task<bool> ClearCartAsync(int userId);
 }
 
@@ -80,50 +80,22 @@ public class CartService : ICartService
     }
     //JWT
     // 🔥 Cập nhật số lượng
-    //public async Task<Cart> UpdateItemAsync(int itemId, int quantity)
-    //{
-    //    var item = await _context.CartItems.FindAsync(itemId);
-    //    if (item == null) return null;
-
-    //    item.Quantity = quantity;
-    //    await _context.SaveChangesAsync();
-
-    //    return await GetCartAsync(item.CartID);
-    //}
-    public async Task<Cart> UpdateItemAsync(int cartItemId, int quantity, int userId)
+    public async Task<Cart> UpdateItemAsync(int itemId, int quantity)
     {
-        // Lấy item trong giỏ theo user
-        var item = await _context.CartItems
-            .Include(ci => ci.Cart)
-            .FirstOrDefaultAsync(ci => ci.CartItemID == cartItemId && ci.Cart.UserID == userId);
-
+        var item = await _context.CartItems.FindAsync(itemId);
         if (item == null) return null;
 
-        // Cập nhật số lượng
         item.Quantity = quantity;
         await _context.SaveChangesAsync();
 
-        // Trả về giỏ hàng hiện tại
-        return await GetCartAsync(userId);
+        return await GetCartAsync(item.CartID);
     }
 
     //JWT
-    // 🔥 Xóa 1 sản phẩm
-    //public async Task<bool> RemoveItemAsync(int itemId)
-    //{
-    //    var item = await _context.CartItems.FindAsync(itemId);
-    //    if (item == null) return false;
-
-    //    _context.CartItems.Remove(item);
-    //    await _context.SaveChangesAsync();
-    //    return true;
-    //}
-    public async Task<bool> RemoveItemAsync(int cartItemId, int userId)
+     //🔥 Xóa 1 sản phẩm
+    public async Task<bool> RemoveItemAsync(int itemId)
     {
-        var item = await _context.CartItems
-            .Include(ci => ci.Cart)
-            .FirstOrDefaultAsync(ci => ci.CartItemID == cartItemId && ci.Cart.UserID == userId);
-
+        var item = await _context.CartItems.FindAsync(itemId);
         if (item == null) return false;
 
         _context.CartItems.Remove(item);
@@ -143,13 +115,4 @@ public class CartService : ICartService
         return true;
     }
 
-    //public Task<Cart> UpdateItemAsync(int cartItemId, int quantity, int userId)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public Task<bool> RemoveItemAsync(int cartItemId, int userId)
-    //{
-    //    throw new NotImplementedException();
-    //}
 }

@@ -67,29 +67,6 @@
         }
       }
     },
-    "/api/Cart/user/{userId}": {
-      "get": {
-        "tags": [
-          "Cart"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Cart": {
       "get": {
         "tags": [
@@ -133,14 +110,14 @@
         }
       }
     },
-    "/api/Cart/update/{itemId}": {
+    "/api/Cart/update/{id}": {
       "put": {
         "tags": [
           "Cart"
         ],
         "parameters": [
           {
-            "name": "itemId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -175,23 +152,14 @@
         }
       }
     },
-    "/api/Cart/remove/{itemId}/{userId}": {
+    "/api/Cart/remove/{id}": {
       "delete": {
         "tags": [
           "Cart"
         ],
         "parameters": [
           {
-            "name": "itemId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -207,21 +175,10 @@
         }
       }
     },
-    "/api/Cart/clear/{userId}": {
+    "/api/Cart/clear": {
       "delete": {
         "tags": [
           "Cart"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -534,10 +491,6 @@
       "AddCartRequest": {
         "type": "object",
         "properties": {
-          "userID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "productID": {
             "type": "integer",
             "format": "int32"
@@ -628,10 +581,6 @@
       "UpdateCartRequest": {
         "type": "object",
         "properties": {
-          "userID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "quantity": {
             "type": "integer",
             "format": "int32"

@@ -3,12 +3,36 @@
   "WorkspaceRootPath": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\services\\cart\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\services\\cart\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\shopthoitrang.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\shopthoitrang.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\dtos\\payment\\paymentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,10 +59,6 @@
       "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\services\\impl\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\services\\impl\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -61,10 +81,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\shopthoitrang.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\shopthoitrang.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\controllers\\reviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -130,10 +146,6 @@
       "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|d:\\shopthoitrang\\backend2\\backenddnqlshopthoitrang\\shopthoitrang.api\\services\\impl\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8ACA820C-3CFF-4343-9C7F-30B3F654F1E8}|ShopThoiTrang.API\\ShopThoiTrang.API.csproj|solutionrelative:shopthoitrang.api\\services\\impl\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -161,7 +173,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -185,67 +197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Cart.cs",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Cart.cs",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Cart.cs",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Cart.cs",
-              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Cart.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T15:45:52.385Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "OrderItem.cs",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\OrderItem.cs",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\OrderItem.cs",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\OrderItem.cs",
-              "RelativeToolTip": "ShopThoiTrang.API\\Models\\OrderItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T15:47:02.72Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Payment.cs",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Payment.cs",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Payment.cs",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Payment.cs",
-              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Payment.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T15:47:29.738Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Product.cs",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Product.cs",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Product.cs",
-              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Product.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAIwAcAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T15:45:26.075Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Review.cs",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Review.cs",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Review.cs",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Review.cs",
-              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Review.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T15:47:54.141Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "CreatePaymentDto.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Dtos\\Payment\\CreatePaymentDto.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Dtos\\Payment\\CreatePaymentDto.cs",
@@ -257,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "PaymentDto.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Dtos\\Payment\\PaymentDto.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Dtos\\Payment\\PaymentDto.cs",
@@ -265,18 +217,30 @@
               "RelativeToolTip": "ShopThoiTrang.API\\Dtos\\Payment\\PaymentDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T13:10:55.023Z",
+              "WhenOpened": "2025-11-21T13:10:55.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ShopThoiTrang.API.http",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\ShopThoiTrang.API.http",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\ShopThoiTrang.API.http",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\ShopThoiTrang.API.http",
+              "RelativeToolTip": "ShopThoiTrang.API\\ShopThoiTrang.API.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-11-21T15:27:35.502Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Program.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Program.cs",
               "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Program.cs",
               "RelativeToolTip": "ShopThoiTrang.API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-20T15:43:14.686Z",
               "EditorCaption": ""
@@ -284,6 +248,119 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Controllers\\CartController.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\CartController.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Controllers\\CartController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAjwBoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-23T04:41:37.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAgwDIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-23T04:45:34.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CartService.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\Cart\\CartService.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\Cart\\CartService.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\Cart\\CartService.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Services\\Cart\\CartService.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAcwHQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-23T04:45:18.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Review.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Review.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Review.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Review.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Review.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T15:47:54.141Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Product.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Product.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Product.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAIwAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T15:45:26.075Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Payment.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Payment.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Payment.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Payment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T15:47:29.738Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Cart.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Cart.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Cart.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Cart.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Models\\Cart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T15:45:52.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CartItem.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\CartItem.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\CartItem.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\CartItem.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Models\\CartItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T15:46:15.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "OrderItem.cs",
+              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\OrderItem.cs",
+              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\OrderItem.cs",
+              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\OrderItem.cs",
+              "RelativeToolTip": "ShopThoiTrang.API\\Models\\OrderItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T15:47:02.72Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\appsettings.json",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\appsettings.json",
@@ -296,19 +373,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ShopThoiTrang.API.http",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\ShopThoiTrang.API.http",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\ShopThoiTrang.API.http",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\ShopThoiTrang.API.http",
-              "RelativeToolTip": "ShopThoiTrang.API\\ShopThoiTrang.API.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-11-21T15:27:35.502Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\IUserService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\IUserService.cs",
@@ -320,7 +385,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "PaymentService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\Impl\\PaymentService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\Impl\\PaymentService.cs",
@@ -332,7 +397,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 17,
               "Title": "IPaymentRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\IPaymentRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\IPaymentRepository.cs",
@@ -344,7 +409,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "ReviewService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\Impl\\ReviewService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\Impl\\ReviewService.cs",
@@ -356,7 +421,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "PaymentsController.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\PaymentsController.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Controllers\\PaymentsController.cs",
@@ -368,7 +433,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "PaymentRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\Impl\\PaymentRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\Impl\\PaymentRepository.cs",
@@ -380,7 +445,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "ReviewsController.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\ReviewsController.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Controllers\\ReviewsController.cs",
@@ -392,7 +457,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "JwtService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\Impl\\JwtService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\Impl\\JwtService.cs",
@@ -404,7 +469,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "20251121140709_Init.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Migrations\\20251121140709_Init.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Migrations\\20251121140709_Init.cs",
@@ -416,7 +481,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 25,
               "Title": "20251121140320_Init.cs",
               "DocumentMoniker": "D:\\Developer\\HK125\\C#\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Migrations\\20251121140320_Init.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Developer\\HK125\\C#\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Migrations\\20251121140320_Init.cs",
@@ -428,7 +493,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "ReviewRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\Impl\\ReviewRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\Impl\\ReviewRepository.cs",
@@ -440,7 +505,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 23,
               "Title": "IUserRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\IUserRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\IUserRepository.cs",
@@ -452,7 +517,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 24,
               "Title": "ProductController.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Controllers\\ProductController.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Controllers\\ProductController.cs",
@@ -464,7 +529,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 26,
               "Title": "IReviewService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\IReviewService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\IReviewService.cs",
@@ -476,7 +541,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 27,
               "Title": "IReviewRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\IReviewRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\IReviewRepository.cs",
@@ -488,7 +553,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 31,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Dtos\\Auth\\LoginDto.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Dtos\\Auth\\LoginDto.cs",
@@ -500,7 +565,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 30,
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Dtos\\Auth\\RegisterDto.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Dtos\\Auth\\RegisterDto.cs",
@@ -512,7 +577,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 29,
               "Title": "UserDto.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Dtos\\User\\UserDto.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Dtos\\User\\UserDto.cs",
@@ -524,7 +589,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 28,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Data\\AppDbContext.cs",
@@ -536,7 +601,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 32,
               "Title": "IProductRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\IProductRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\IProductRepository.cs",
@@ -548,7 +613,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 33,
               "Title": "ProductRepository.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Repositories\\Impl\\ProductRepository.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Repositories\\Impl\\ProductRepository.cs",
@@ -560,7 +625,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 34,
               "Title": "IProductService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\IProductService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\IProductService.cs",
@@ -572,7 +637,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 36,
               "Title": "ProductService.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Services\\Impl\\ProductService.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Services\\Impl\\ProductService.cs",
@@ -584,7 +649,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 35,
               "Title": "Role.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Role.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Role.cs",
@@ -596,19 +661,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "CartItem.cs",
-              "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\CartItem.cs",
-              "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\CartItem.cs",
-              "ToolTip": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\CartItem.cs",
-              "RelativeToolTip": "ShopThoiTrang.API\\Models\\CartItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T15:46:15.743Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": "Category.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Category.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Category.cs",
@@ -620,7 +673,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 38,
               "Title": "Order.cs",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\Models\\Order.cs",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\Models\\Order.cs",
@@ -632,7 +685,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 39,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\ShopThoiTrang\\Backend2\\BackEndDNQLShopThoiTrang\\ShopThoiTrang.API\\appsettings.Development.json",
               "RelativeDocumentMoniker": "ShopThoiTrang.API\\appsettings.Development.json",

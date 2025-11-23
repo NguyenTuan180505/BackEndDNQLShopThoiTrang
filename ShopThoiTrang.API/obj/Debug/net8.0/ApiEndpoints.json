@@ -33,7 +33,7 @@
   },
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
-    "Method": "GetCartByUser",
+    "Method": "GetCart",
     "RelativePath": "api/Cart",
     "HttpMethod": "GET",
     "IsController": true,
@@ -60,34 +60,23 @@
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
     "Method": "Clear",
-    "RelativePath": "api/Cart/clear/{userId}",
+    "RelativePath": "api/Cart/clear",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
     "Method": "Remove",
-    "RelativePath": "api/Cart/remove/{itemId}/{userId}",
+    "RelativePath": "api/Cart/remove/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "itemId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "userId",
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -97,35 +86,19 @@
   {
     "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
     "Method": "Update",
-    "RelativePath": "api/Cart/update/{itemId}",
+    "RelativePath": "api/Cart/update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "itemId",
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       },
       {
         "Name": "request",
         "Type": "ShopThoiTrang.API.Controllers.UpdateCartRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ShopThoiTrang.API.Controllers.CartController",
-    "Method": "GetCartByUser",
-    "RelativePath": "api/Cart/user/{userId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
