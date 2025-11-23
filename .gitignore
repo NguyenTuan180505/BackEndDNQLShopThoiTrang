@@ -1,0 +1,33 @@
+## Visual Studio
+.vs/
+
+## Build folders
+bin/
+obj/
+
+## User-specific files
+*.user
+*.suo
+
+## Visual Studio cache
+*.cache
+*.db
+*.opendb
+
+## Logs
+*.log
+
+## DotNET
+project.lock.json
+project.fragment.lock.json
+
+## NuGet
+*.nupkg
+*.nuget.props
+*.nuget.targets
+**/packages/*
+
+## Other
+*.tmp
+*.bak
+*.temp
