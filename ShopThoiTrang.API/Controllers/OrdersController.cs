@@ -19,86 +19,71 @@ namespace ShopThoiTrang.API.Controllers
             _orderService = orderService;
         }
 
-        // 1. API CHO KHÁCH HÀNG (CUSTOMER)
-        // POST: api/orders (Tạo đơn hàng mới)
-        [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto createDto)
+        // 1. API TẠO ĐƠN HÀNG (CUSTOMER)
+
+        // POST: api/orders/from-cart (Tạo đơn từ giỏ hàng)
+        [HttpPost("from-cart")]
+        public async Task<IActionResult> CreateFromCart([FromBody] CreateOrderFromCartDto dto)
         {
             try
             {
                 var userId = GetCurrentUserId();
-                if (userId == 0) return Unauthorized("Vui lòng đăng nhập lại.");
+                if (userId == 0) return Unauthorized("Không xác định được người dùng.");
 
-                var newOrder = new Order
-                {
-                    UserID = userId,
-                    ShippingAddress = createDto.ShippingAddress,
-                    PaymentMethod = createDto.PaymentMethod,
-                    PaymentStatus = "Pending",   
-                    OrderStatus = "Processing",  
-                    OrderDate = DateTime.Now,
-
-                    OrderItems = createDto.OrderItems.Select(item => new OrderItem
-                    {
-                        ProductID = item.ProductID,
-                        Quantity = item.Quantity
-                    }).ToList()
-                };
-
-                var createdOrder = await _orderService.CreateOrderAsync(newOrder);
-
-                if (createdOrder == null)
-                {
-                    return BadRequest("Không thể tạo đơn hàng. Vui lòng thử lại.");
-                }
-
-                var responseDto = MapToResponseDto(createdOrder);
-
-                return CreatedAtAction(nameof(GetOrderById), new { id = createdOrder.OrderID }, responseDto);
+                var order = await _orderService.CreateOrderFromCartAsync(userId, dto);
+                
+                return Ok(new 
+                { 
+                    Message = "Đặt hàng từ giỏ thành công!", 
+                    OrderId = order.OrderID, 
+                    Total = order.TotalAmount 
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { Error = ex.Message });
             }
         }
 
-        // GET: api/orders/my-orders 
-        [HttpGet("my-orders")]
+        // POST: api/orders/direct (Mua ngay / Mua trực tiếp)
+        [HttpPost("direct")]
+        public async Task<IActionResult> CreateDirect([FromBody] CreateOrderDirectDto dto)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                if (userId == 0) return Unauthorized("Không xác định được người dùng.");
+
+                var order = await _orderService.CreateOrderDirectAsync(userId, dto);
+
+                return Ok(new 
+                { 
+                    Message = "Đặt hàng thành công!", 
+                    OrderId = order.OrderID, 
+                    Total = order.TotalAmount 
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
+        // 2. API XEM ĐƠN HÀNG
+       
+        // GET: api/orders/my (Lịch sử đơn hàng của tôi)
+        [HttpGet("my")] 
         public async Task<IActionResult> GetMyOrders()
         {
             var userId = GetCurrentUserId();
-            var orders = await _orderService.GetOrdersByUserIdAsync(userId);
+            var orders = await _orderService.GetMyOrdersAsync(userId);
 
             var orderDtos = orders.Select(MapToResponseDto).ToList();
 
             return Ok(orderDtos);
         }
 
-        // PUT: api/orders/{id}/cancel (Hủy đơn hàng)
-        [HttpPut("{id}/cancel")]
-        public async Task<IActionResult> CancelOrder(int id)
-        {
-            var userId = GetCurrentUserId();
-            var order = await _orderService.GetOrderByIdAsync(id);
-
-            if (order == null) return NotFound("Không tìm thấy đơn hàng.");
-
-            if (!IsAdmin() && order.UserID != userId)
-            {
-                return Forbid();
-            }
-
-            var result = await _orderService.CancelOrderAsync(id);
-
-            if (!result)
-                return BadRequest("Không thể hủy đơn hàng này (Có thể đã giao hoặc đã hủy rồi).");
-
-            return Ok(new { message = "Hủy đơn hàng thành công." });
-        }
-
-        // 2. API DÙNG CHUNG (SHARED) HOẶC ADMIN
-    
-        // GET: api/orders/{id} (Chi tiết đơn hàng)
+        // GET: api/orders/{id} (Chi tiết 1 đơn hàng)
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
@@ -106,6 +91,7 @@ namespace ShopThoiTrang.API.Controllers
             if (order == null) return NotFound("Không tìm thấy đơn hàng.");
 
             var userId = GetCurrentUserId();
+            
             if (!IsAdmin() && order.UserID != userId)
             {
                 return Forbid();
@@ -114,9 +100,51 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(MapToResponseDto(order));
         }
 
-        // 3. API QUẢN TRỊ (ADMIN ONLY)
-      
-        // GET: api/orders (Xem tất cả)
+        // 3. API XỬ LÝ ĐƠN (HỦY / CẬP NHẬT)
+       
+        // PUT: api/orders/{id}/cancel (Hủy đơn hàng)
+        [HttpPut("{id}/cancel")]
+        public async Task<IActionResult> CancelOrder(int id)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                var order = await _orderService.GetOrderByIdAsync(id);
+
+                if (order == null) return NotFound("Không tìm thấy đơn hàng.");
+
+                if (!IsAdmin() && order.UserID != userId)
+                {
+                    return Forbid();
+                }
+
+                var result = await _orderService.CancelOrderAsync(id);
+
+                if (!result)
+                    return BadRequest("Không thể hủy đơn hàng này (Đã giao hoặc đã hủy).");
+
+                return Ok(new { message = "Hủy đơn hàng thành công." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        // PUT: api/orders/{id}/status (Admin cập nhật trạng thái)
+        [HttpPut("{id}/status")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderUpdateStatusDto dto)
+        {
+            var result = await _orderService.UpdateOrderStatusAsync(id, dto.OrderStatus);
+
+            if (!result)
+                return BadRequest("Cập nhật thất bại hoặc đơn hàng không tồn tại.");
+
+            return Ok(new { message = "Cập nhật trạng thái thành công." });
+        }
+
+        // GET: api/orders (Admin xem tất cả)
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllOrders()
@@ -126,28 +154,20 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(orderDtos);
         }
 
-        // PUT: api/orders/{id}/status (Cập nhật trạng thái)
-        [HttpPut("{id}/status")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderUpdateStatusDto dto)
-        {
-            var result = await _orderService.UpdateOrderStatusAsync(id, dto.OrderStatus);
-
-            if (!result)
-                return BadRequest("Cập nhật thất bại.");
-
-            return Ok(new { message = "Cập nhật trạng thái thành công." });
-        }
-
-        // 4. CÁC HÀM PHỤ TRỢ (PRIVATE HELPER)
-      
-        // Hàm lấy UserID từ Token
+        // 4. CÁC HÀM PHỤ TRỢ (HELPER)
+       
         private int GetCurrentUserId()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity != null)
             {
                 var userClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                
+                if (userClaim == null) 
+                {
+                    userClaim = identity.FindFirst("UserID");
+                }
+
                 if (userClaim != null && int.TryParse(userClaim.Value, out int userId))
                 {
                     return userId;
@@ -156,7 +176,6 @@ namespace ShopThoiTrang.API.Controllers
             return 0;
         }
 
-        // Hàm kiểm tra quyền Admin
         private bool IsAdmin()
         {
             return User.IsInRole("Admin");

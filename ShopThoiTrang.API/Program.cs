@@ -48,7 +48,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(x =>
         x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-// 5. Cấu hình Authentication (JWT) - Kết hợp Develop (Strict) + HEAD (Key Fallback)
+// 5. Cấu hình Authentication (JWT)
 var secretKey = builder.Configuration["Jwt:Key"] ?? "DayLaKeyBiMatCuaShopThoiTrang123456789";
 var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
 
@@ -68,34 +68,34 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// 6. Cấu hình Swagger (Dùng bản của Develop để có nút Authorize)
+// 6. Cấu hình Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopThoiTrang API", Version = "v1" });
 
-    //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    //{
-    //    In = ParameterLocation.Header,
-    //    Description = "Nhập token theo dạng: Bearer {token}",
-    //    Name = "Authorization",
-    //    Type = SecuritySchemeType.ApiKey
-    //});
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Nhập token theo dạng: Bearer {token}",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
 
-    //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    //{
-    //    {
-    //        new OpenApiSecurityScheme
-    //        {
-    //            Reference = new OpenApiReference
-    //            {
-    //                Type = ReferenceType.SecurityScheme,
-    //                Id = "Bearer"
-    //            }
-    //        },
-    //        new string[]{}
-    //    }
-    //});
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
 });
 
 var app = builder.Build();

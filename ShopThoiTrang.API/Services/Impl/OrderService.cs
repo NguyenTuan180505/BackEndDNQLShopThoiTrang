@@ -1,5 +1,7 @@
-﻿using ShopThoiTrang.API.Models;
+﻿using ShopThoiTrang.API.Dtos.Order;
+using ShopThoiTrang.API.Models;
 using ShopThoiTrang.API.Repositories;
+using ShopThoiTrang.API.Services;
 
 namespace ShopThoiTrang.API.Services.Impl
 {
@@ -7,19 +9,128 @@ namespace ShopThoiTrang.API.Services.Impl
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IProductRepository _productRepository;
-
-        public OrderService(IOrderRepository orderRepository, IProductRepository productRepository)
+        private readonly ICartService _cartService;
+        public OrderService(IOrderRepository orderRepository, IProductRepository productRepository, ICartService cartService)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
+            _cartService = cartService;
+        }
+        // 1. TẠO ĐƠN TỪ GIỎ HÀNG
+        public async Task<Order> CreateOrderFromCartAsync(int userId, CreateOrderFromCartDto dto)
+        {
+            var cart = await _cartService.GetCartAsync(userId);
+
+            if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
+            {
+                throw new Exception("Giỏ hàng trống, không thể tạo đơn.");
+            }
+
+            var order = new Order
+            {
+                UserID = userId,
+                OrderDate = DateTime.Now,
+                ShippingAddress = dto.ShippingAddress,
+                PaymentMethod = dto.PaymentMethod,
+                OrderStatus = "Processing",
+                PaymentStatus = "Pending",
+                OrderItems = new List<OrderItem>()
+            };
+
+            decimal totalAmount = 0;
+
+            foreach (var cartItem in cart.CartItems)
+            {
+                var product = await _productRepository.GetByIdAsync(cartItem.ProductID);
+
+                if (product == null || !product.IsActive)
+                    throw new Exception($"Sản phẩm (ID: {cartItem.ProductID}) không khả dụng.");
+
+                if (product.Stock < cartItem.Quantity)
+                    throw new Exception($"Sản phẩm '{product.ProductName}' không đủ hàng (Còn: {product.Stock}).");
+
+                var orderItem = new OrderItem
+                {
+                    ProductID = product.ProductID,
+                    Quantity = cartItem.Quantity,
+                    UnitPrice = product.Price 
+                };
+
+                order.OrderItems.Add(orderItem);
+                totalAmount += orderItem.Quantity * orderItem.UnitPrice;
+
+                product.Stock -= cartItem.Quantity;
+                await _productRepository.UpdateAsync(product);
+            }
+
+            order.TotalAmount = totalAmount;
+
+            await _orderRepository.AddOrderAsync(order);
+            await _orderRepository.SaveChangesAsync();
+
+            await _cartService.ClearCartAsync(userId);
+
+            return order;
+        }
+        // 2. MUA TRỰC TIẾP
+        public async Task<Order> CreateOrderDirectAsync(int userId, CreateOrderDirectDto dto)
+        {
+            if (dto.Items == null || !dto.Items.Any())
+                throw new Exception("Danh sách sản phẩm trống.");
+
+            var order = new Order
+            {
+                UserID = userId,
+                OrderDate = DateTime.Now,
+                ShippingAddress = dto.ShippingAddress,
+                PaymentMethod = dto.PaymentMethod,
+                OrderStatus = "Processing",
+                PaymentStatus = "Pending",
+                OrderItems = new List<OrderItem>()
+            };
+
+            decimal totalAmount = 0;
+
+            foreach (var itemDto in dto.Items)
+            {
+                var product = await _productRepository.GetByIdAsync(itemDto.ProductId);
+                if (product == null || !product.IsActive)
+                    throw new Exception($"Sản phẩm ID {itemDto.ProductId} không tồn tại.");
+
+                if (product.Stock < itemDto.Quantity)
+                    throw new Exception($"Sản phẩm '{product.ProductName}' hết hàng.");
+                var orderItem = new OrderItem
+                {
+                    ProductID = product.ProductID,
+                    Quantity = itemDto.Quantity,
+                    UnitPrice = product.Price
+                };
+                order.OrderItems.Add(orderItem);
+                totalAmount += orderItem.Quantity * orderItem.UnitPrice;
+
+                product.Stock -= itemDto.Quantity;
+                await _productRepository.UpdateAsync(product);
+            }
+
+            order.TotalAmount = totalAmount;
+
+            await _orderRepository.AddOrderAsync(order);
+            await _orderRepository.SaveChangesAsync();
+
+            return order;
         }
 
-        // ... Các hàm Get (GetAllOrdersAsync, GetById...) giữ nguyên ...
+        // 3. LỊCH SỬ ĐƠN HÀNG
+        public async Task<IEnumerable<Order>> GetMyOrdersAsync(int userId)
+        {
+            return await _orderRepository.GetOrdersByUserAsync(userId);
+        }
+
         public async Task<IEnumerable<Order>> GetAllOrdersAsync() => await _orderRepository.GetAllOrdersAsync(null);
         public async Task<Order?> GetOrderByIdAsync(int id) => await _orderRepository.GetOrderByIdAsync(id);
         public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId) => await _orderRepository.GetOrdersByUserAsync(userId);
 
-        // --- TẠO ĐƠN HÀNG (SỬA LẠI ĐỂ GỌI UpdateAsync) ---
+        // --- TẠO ĐƠN HÀNG
         public async Task<Order?> CreateOrderAsync(Order order)
         {
             decimal calculatedTotal = 0;
@@ -37,11 +148,7 @@ namespace ShopThoiTrang.API.Services.Impl
 
                 item.UnitPrice = product.Price;
                 calculatedTotal += item.UnitPrice * item.Quantity;
-
-                // Trừ kho
                 product.Stock -= item.Quantity;
-
-                // SỬA Ở ĐÂY: Gọi UpdateAsync thay vì UpdateProduct
                 await _productRepository.UpdateAsync(product);
             }
 
@@ -50,7 +157,6 @@ namespace ShopThoiTrang.API.Services.Impl
 
             await _orderRepository.AddOrderAsync(order);
 
-            // Lưu Order (Product đã được save trong hàm UpdateAsync ở trên rồi, nhưng gọi SaveChanges ở đây để chốt Order)
             var result = await _orderRepository.SaveChangesAsync();
 
             return result ? order : null;
@@ -76,7 +182,6 @@ namespace ShopThoiTrang.API.Services.Impl
             if (order.OrderStatus == "Shipped" || order.OrderStatus == "Delivered")
                 throw new Exception("Không thể hủy đơn đang giao hoặc đã giao.");
 
-            // Hoàn kho
             if (order.OrderItems != null)
             {
                 foreach (var item in order.OrderItems)
@@ -85,13 +190,10 @@ namespace ShopThoiTrang.API.Services.Impl
                     if (product != null)
                     {
                         product.Stock += item.Quantity;
-
-                        // SỬA Ở ĐÂY: Gọi UpdateAsync thay vì UpdateProduct
                         await _productRepository.UpdateAsync(product);
                     }
                 }
             }
-
             order.OrderStatus = "Cancelled";
             _orderRepository.UpdateOrder(order);
             return await _orderRepository.SaveChangesAsync();
