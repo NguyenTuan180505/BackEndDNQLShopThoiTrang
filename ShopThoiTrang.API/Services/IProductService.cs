@@ -12,4 +12,3 @@ namespace ShopThoiTrang.API.Services
         Task<bool> DeleteAsync(int id);
     }
 }
-// update

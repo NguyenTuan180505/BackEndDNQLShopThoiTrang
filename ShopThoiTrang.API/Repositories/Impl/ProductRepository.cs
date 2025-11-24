@@ -2,7 +2,7 @@
 using ShopThoiTrang.API.Data;
 using ShopThoiTrang.API.Models;
 
-namespace ShopThoiTrang.API.Repositories.Impl
+namespace ShopThoiTrang.API.Repositories.Impl 
 {
     public class ProductRepository : IProductRepository
     {
@@ -20,6 +20,29 @@ namespace ShopThoiTrang.API.Repositories.Impl
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Product>> GetAllAsync(string? search, int? categoryId, string? sortBy)
+        {
+            var query = _context.Products
+                .Include(p => p.Category)
+                .Where(p => p.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+                query = query.Where(p => p.ProductName.Contains(search));
+
+            if (categoryId.HasValue)
+                query = query.Where(p => p.CategoryID == categoryId.Value);
+
+            switch (sortBy)
+            {
+                case "price_asc": query = query.OrderBy(p => p.Price); break;
+                case "price_desc": query = query.OrderByDescending(p => p.Price); break;
+                case "newest": query = query.OrderByDescending(p => p.CreatedAt); break;
+            }
+
+            return await query.ToListAsync();
+        }
+
         public async Task<Product?> GetByIdAsync(int id)
         {
             return await _context.Products
@@ -27,6 +50,7 @@ namespace ShopThoiTrang.API.Repositories.Impl
                 .FirstOrDefaultAsync(p => p.ProductID == id);
         }
 
+        // --- Create (Tự Save) ---
         public async Task<Product> CreateAsync(Product product)
         {
             _context.Products.Add(product);
@@ -34,12 +58,14 @@ namespace ShopThoiTrang.API.Repositories.Impl
             return product;
         }
 
+        // --- Update (Tự Save, trả về bool) 
         public async Task<bool> UpdateAsync(Product product)
         {
             _context.Products.Update(product);
             return await _context.SaveChangesAsync() > 0;
         }
 
+        // ---Hard Delete (Xóa hẳn khỏi DB)
         public async Task<bool> DeleteAsync(int id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -48,7 +74,6 @@ namespace ShopThoiTrang.API.Repositories.Impl
             _context.Products.Remove(product);
             return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }
-// update
-
