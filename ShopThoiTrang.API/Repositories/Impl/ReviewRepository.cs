@@ -27,7 +27,22 @@ namespace ShopThoiTrang.API.Repositories.Impl
                 .FirstOrDefaultAsync(r => r.ReviewID == id);
         }
 
+        // ======================================================
+        // Public / Customer: chỉ được xem review không bị ẩn
+        // ======================================================
         public async Task<IEnumerable<Review>> GetByProductAsync(int productId)
+        {
+            return await _context.Reviews
+                .Include(r => r.User)
+                .Where(r => r.ProductID == productId && r.IsHidden == false)
+                .OrderByDescending(r => r.CreatedAt)
+                .ToListAsync();
+        }
+
+        // ======================================================
+        // Admin: xem tất cả review bao gồm cả những review bị ẩn
+        // ======================================================
+        public async Task<IEnumerable<Review>> GetAllForProductAdminAsync(int productId)
         {
             return await _context.Reviews
                 .Include(r => r.User)

@@ -23,7 +23,7 @@ namespace ShopThoiTrang.API.Repositories.Impl
         public async Task<Payment?> GetByIdAsync(int id)
         {
             return await _context.Payments
-                .Include(p => p.Order)
+                .Include(p => p.Order) // cần include để kiểm tra quyền Customer
                 .FirstOrDefaultAsync(p => p.PaymentID == id);
         }
 
@@ -31,6 +31,15 @@ namespace ShopThoiTrang.API.Repositories.Impl
         {
             return await _context.Payments
                 .Where(p => p.OrderID == orderId)
+                .OrderByDescending(p => p.PaymentID)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Payment>> GetAllAsync()
+        {
+            return await _context.Payments
+                .Include(p => p.Order)      // để Admin xem luôn UserID từ Order
+                .OrderByDescending(p => p.PaymentID)
                 .ToListAsync();
         }
 

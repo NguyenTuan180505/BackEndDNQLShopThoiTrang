@@ -17,43 +17,68 @@ namespace ShopThoiTrang.API.Controllers
             _reviewService = reviewService;
         }
 
-        // Lấy userId đúng theo token bạn đã tạo
         private int GetUserId()
         {
-            var claim = User.FindFirst("userId")?.Value;
-            if (claim == null)
-                throw new UnauthorizedAccessException("Token không chứa userId.");
-
-            return int.Parse(claim);
+            return int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
 
-        [HttpGet("product/{productId}")]
-        public async Task<IActionResult> GetByProduct(int productId)
+        private bool IsAdmin()
         {
-            var data = await _reviewService.GetByProductAsync(productId);
+            return User.IsInRole("Admin");
+        }
+
+        // ========================================================
+        // 1) Xem review theo Product + lọc rating (Public/Admin)
+        // ========================================================
+        // Ví dụ:
+        // GET /api/reviews/product/10?rating=5
+        [HttpGet("product/{productId}")]
+        public async Task<IActionResult> GetByProduct(int productId, [FromQuery] int? rating)
+        {
+            bool isAdmin = IsAdmin();
+            var data = await _reviewService.GetByProductAsync(productId, isAdmin, rating);
             return Ok(data);
         }
 
+        // ========================================================
+        // 2) Customer tạo review
+        // ========================================================
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create(CreateReviewDto dto)
         {
             int userId = GetUserId();
-
             var result = await _reviewService.CreateAsync(dto, userId);
             return Ok(result);
         }
 
+        // ========================================================
+        // 3) Customer xoá review của họ / Admin xoá tất cả
+        // ========================================================
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             int userId = GetUserId();
+            bool isAdmin = IsAdmin();
 
-            var ok = await _reviewService.DeleteAsync(id, userId);
+            var ok = await _reviewService.DeleteAsync(id, userId, isAdmin);
             if (!ok) return NotFound();
 
             return NoContent();
+        }
+
+        // ========================================================
+        // 4) ADMIN ẨN REVIEW
+        // ========================================================
+        [HttpPatch("{id}/hide")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> HideReview(int id)
+        {
+            bool ok = await _reviewService.HideAsync(id);
+            if (!ok) return NotFound();
+
+            return Ok(new { message = "Review đã được ẩn." });
         }
     }
 }

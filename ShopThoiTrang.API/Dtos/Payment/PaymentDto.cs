@@ -1,4 +1,6 @@
-﻿namespace ShopThoiTrang.API.Dtos.Payment
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ShopThoiTrang.API.Dtos.Payment
 {
     public class PaymentDto
     {
@@ -7,7 +9,11 @@
         public string? PaymentMethod { get; set; }
         public string? TransactionID { get; set; }
         public decimal Amount { get; set; }
+
+        // Giữ nguyên local time như model
         public DateTime PaymentDate { get; set; }
-        public string Status { get; set; }
+
+        [Required]
+        public string Status { get; set; } = default!;
     }
 }

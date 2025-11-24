@@ -7,6 +7,7 @@ namespace ShopThoiTrang.API.Repositories
         Task<Payment> CreateAsync(Payment payment);
         Task<Payment?> GetByIdAsync(int id);
         Task<IEnumerable<Payment>> GetByOrderIdAsync(int orderId);
+        Task<IEnumerable<Payment>> GetAllAsync(); // Admin
         Task SaveChangesAsync();
     }
 }
