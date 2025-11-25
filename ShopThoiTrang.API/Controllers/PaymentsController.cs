@@ -8,7 +8,7 @@ namespace ShopThoiTrang.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize] // Mặc định cần login
+    [Authorize] // Mặc định yêu cầu đăng nhập
     public class PaymentsController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
@@ -18,18 +18,23 @@ namespace ShopThoiTrang.API.Controllers
             _paymentService = paymentService;
         }
 
+        // ⭐ Lấy userId từ claim "userId" trong JWT (KHÔNG dùng NameIdentifier)
         private int GetUserId()
         {
-            return int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var id = User.FindFirstValue("userId");
+
+            if (string.IsNullOrEmpty(id))
+                throw new UnauthorizedAccessException("JWT không chứa claim userId.");
+
+            return int.Parse(id);
         }
 
-        private bool IsAdmin()
-        {
-            return User.IsInRole("Admin");
-        }
+        // ⭐ Kiểm tra role (để dùng cho GetByOrder và GetById)
+        private bool IsAdmin() => User.IsInRole("Admin");
+
 
         // =======================================================
-        // 1) Tạo thanh toán (Chỉ Customer)
+        // 1) Customer tạo thanh toán
         // =======================================================
         [HttpPost]
         [Authorize(Roles = "Customer")]
@@ -41,14 +46,15 @@ namespace ShopThoiTrang.API.Controllers
                 var result = await _paymentService.CreateAsync(dto, userId);
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Không thể tạo giao dịch." });
+                return BadRequest(new { message = ex.Message });
             }
         }
 
+
         // =======================================================
-        // 2) Customer xem thanh toán theo OrderId
+        // 2) Customer xem payment theo OrderID
         // =======================================================
         [HttpGet("order/{orderId}")]
         public async Task<IActionResult> GetByOrder(int orderId)
@@ -56,22 +62,22 @@ namespace ShopThoiTrang.API.Controllers
             try
             {
                 var userId = GetUserId();
-                var isAdmin = IsAdmin();
+                var result = await _paymentService.GetByOrderIdAsync(orderId, userId, IsAdmin());
 
-                var result = await _paymentService.GetByOrderIdAsync(orderId, userId, isAdmin);
                 if (result == null)
                     return NotFound();
 
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Lỗi khi lấy giao dịch." });
+                return BadRequest(new { message = ex.Message });
             }
         }
 
+
         // =======================================================
-        // 3) Customer xem chi tiết thanh toán theo Id
+        // 3) Customer xem chi tiết payment
         // =======================================================
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -79,22 +85,22 @@ namespace ShopThoiTrang.API.Controllers
             try
             {
                 var userId = GetUserId();
-                var isAdmin = IsAdmin();
+                var result = await _paymentService.GetByIdAsync(id, userId, IsAdmin());
 
-                var result = await _paymentService.GetByIdAsync(id, userId, isAdmin);
                 if (result == null)
                     return NotFound();
 
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Không thể lấy chi tiết giao dịch." });
+                return BadRequest(new { message = ex.Message });
             }
         }
 
+
         // =======================================================
-        // 4) Admin xem tất cả thanh toán
+        // 4) Admin xem tất cả giao dịch
         // =======================================================
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -105,9 +111,9 @@ namespace ShopThoiTrang.API.Controllers
                 var result = await _paymentService.GetAllAsync();
                 return Ok(result);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Không thể lấy danh sách giao dịch." });
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

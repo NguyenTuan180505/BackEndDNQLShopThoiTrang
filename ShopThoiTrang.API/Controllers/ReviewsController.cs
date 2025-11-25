@@ -11,27 +11,31 @@ namespace ShopThoiTrang.API.Controllers
     public class ReviewsController : ControllerBase
     {
         private readonly IReviewService _reviewService;
+        private readonly IUserService _userService;
 
-        public ReviewsController(IReviewService reviewService)
+        public ReviewsController(IReviewService reviewService, IUserService userService)
         {
             _reviewService = reviewService;
+            _userService = userService;
         }
 
+        // ⭐ Lấy userId từ claim "userId"
         private int GetUserId()
         {
-            return int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var id = User.FindFirstValue("userId");
+
+            if (string.IsNullOrEmpty(id))
+                throw new UnauthorizedAccessException("JWT does not contain 'userId' claim.");
+
+            return int.Parse(id);
         }
 
-        private bool IsAdmin()
-        {
-            return User.IsInRole("Admin");
-        }
 
-        // ========================================================
-        // 1) Xem review theo Product + lọc rating (Public/Admin)
-        // ========================================================
-        // Ví dụ:
-        // GET /api/reviews/product/10?rating=5
+        // ⭐ Kiểm tra role dựa trên JwtService (ADMIN hoặc CUSTOMER)
+        private bool IsAdmin() => User.IsInRole("ADMIN");
+        private bool IsCustomer() => User.IsInRole("CUSTOMER");
+
+        // GET: /api/reviews/product/{productId}
         [HttpGet("product/{productId}")]
         public async Task<IActionResult> GetByProduct(int productId, [FromQuery] int? rating)
         {
@@ -40,9 +44,7 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(data);
         }
 
-        // ========================================================
-        // 2) Customer tạo review
-        // ========================================================
+        // ⭐ ALLOW CUSTOMER đúng theo JWT (Customer)
         [HttpPost]
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create(CreateReviewDto dto)
@@ -52,11 +54,9 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(result);
         }
 
-        // ========================================================
-        // 3) Customer xoá review của họ / Admin xoá tất cả
-        // ========================================================
+        // ⭐ CUSTOMER hoặc ADMIN
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Customer,Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             int userId = GetUserId();
@@ -68,9 +68,7 @@ namespace ShopThoiTrang.API.Controllers
             return NoContent();
         }
 
-        // ========================================================
-        // 4) ADMIN ẨN REVIEW
-        // ========================================================
+        // ⭐ ADMIN
         [HttpPatch("{id}/hide")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> HideReview(int id)
@@ -80,5 +78,6 @@ namespace ShopThoiTrang.API.Controllers
 
             return Ok(new { message = "Review đã được ẩn." });
         }
+
     }
 }
