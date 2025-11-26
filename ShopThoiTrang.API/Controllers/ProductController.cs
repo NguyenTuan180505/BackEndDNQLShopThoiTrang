@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopThoiTrang.API.Dtos.Products;
 using ShopThoiTrang.API.Services;
 
@@ -15,12 +16,14 @@ namespace ShopThoiTrangAPI.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _service.GetAllAsync());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -31,6 +34,7 @@ namespace ShopThoiTrangAPI.Controllers
             return Ok(product);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateDto dto)
         {
@@ -38,6 +42,7 @@ namespace ShopThoiTrangAPI.Controllers
             return Ok(created);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, ProductUpdateDto dto)
         {
@@ -48,6 +53,7 @@ namespace ShopThoiTrangAPI.Controllers
             return Ok(new { message = "Cập nhật sản phẩm thành công" });
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
