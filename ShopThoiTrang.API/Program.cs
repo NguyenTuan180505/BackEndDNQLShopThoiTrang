@@ -49,24 +49,38 @@ builder.Services.AddControllers()
         x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 // 5. Cấu hình Authentication (JWT)
-var secretKey = builder.Configuration["Jwt:Key"] ?? "DayLaKeyBiMatCuaShopThoiTrang123456789";
-var secretKeyBytes = Encoding.UTF8.GetBytes(secretKey);
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true, 
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),
-            ClockSkew = TimeSpan.Zero
-        };
-    });
+        // 1. Kiểm tra Issuer (ShopThoiTrangAPI)
+        ValidateIssuer = true,
+        ValidIssuer = jwtSettings["Issuer"],
+
+        // 2. Kiểm tra Audience (ShopThoiTrangAPIUsers)
+        ValidateAudience = true,
+        ValidAudience = jwtSettings["Audience"],
+
+        // 3. Kiểm tra thời gian (tránh token hết hạn)
+        ValidateLifetime = true,
+
+        // 4. Kiểm tra chữ ký (Key bí mật)
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+
+        // Chấp nhận độ lệch thời gian bằng 0 (chặt chẽ hơn)
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 // 6. Cấu hình Swagger
 builder.Services.AddEndpointsApiExplorer();

@@ -7,16 +7,10 @@ namespace ShopThoiTrang.API.Services
     {
         Task<IEnumerable<Order>> GetAllOrdersAsync();
         Task<Order?> GetOrderByIdAsync(int id);
-
         Task<IEnumerable<Order>> GetMyOrdersAsync(int userId);
-
         Task<bool> UpdateOrderStatusAsync(int id, string status);
         Task<bool> CancelOrderAsync(int id);
 
-        Task<Order> CreateOrderFromCartAsync(int userId, CreateOrderFromCartDto dto);
-
-        Task<Order> CreateOrderDirectAsync(int userId, CreateOrderDirectDto dto);
-
-        Task<Order?> CreateOrderAsync(Order order);
+        Task<Order> CreateOrderAsync(int userId, OrderCreateDto dto);
     }
 }

@@ -19,48 +19,22 @@ namespace ShopThoiTrang.API.Controllers
             _orderService = orderService;
         }
 
-        // 1. API TẠO ĐƠN HÀNG (CUSTOMER)
-
-        // POST: api/orders/from-cart (Tạo đơn từ giỏ hàng)
-        [HttpPost("from-cart")]
-        public async Task<IActionResult> CreateFromCart([FromBody] CreateOrderFromCartDto dto)
+        // 1. API TẠO ĐƠN HÀNG (GỘP CHUNG)
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto dto)
         {
             try
             {
                 var userId = GetCurrentUserId();
-                if (userId == 0) return Unauthorized("Không xác định được người dùng.");
+                if (userId == 0) return Unauthorized("Không xác định được người dùng. Vui lòng đăng nhập lại.");
 
-                var order = await _orderService.CreateOrderFromCartAsync(userId, dto);
-                
-                return Ok(new 
-                { 
-                    Message = "Đặt hàng từ giỏ thành công!", 
-                    OrderId = order.OrderID, 
-                    Total = order.TotalAmount 
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Error = ex.Message });
-            }
-        }
+                var order = await _orderService.CreateOrderAsync(userId, dto);
 
-        // POST: api/orders/direct (Mua ngay / Mua trực tiếp)
-        [HttpPost("direct")]
-        public async Task<IActionResult> CreateDirect([FromBody] CreateOrderDirectDto dto)
-        {
-            try
-            {
-                var userId = GetCurrentUserId();
-                if (userId == 0) return Unauthorized("Không xác định được người dùng.");
-
-                var order = await _orderService.CreateOrderDirectAsync(userId, dto);
-
-                return Ok(new 
-                { 
-                    Message = "Đặt hàng thành công!", 
-                    OrderId = order.OrderID, 
-                    Total = order.TotalAmount 
+                return Ok(new
+                {
+                    Message = "Đặt hàng thành công!",
+                    OrderId = order.OrderID,
+                    Total = order.TotalAmount
                 });
             }
             catch (Exception ex)
@@ -70,7 +44,7 @@ namespace ShopThoiTrang.API.Controllers
         }
 
         // 2. API XEM ĐƠN HÀNG
-       
+
         // GET: api/orders/my (Lịch sử đơn hàng của tôi)
         [HttpGet("my")] 
         public async Task<IActionResult> GetMyOrders()
@@ -133,7 +107,7 @@ namespace ShopThoiTrang.API.Controllers
 
         // PUT: api/orders/{id}/status (Admin cập nhật trạng thái)
         [HttpPut("{id}/status")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderUpdateStatusDto dto)
         {
             var result = await _orderService.UpdateOrderStatusAsync(id, dto.OrderStatus);
@@ -145,8 +119,8 @@ namespace ShopThoiTrang.API.Controllers
         }
 
         // GET: api/orders (Admin xem tất cả)
+        [Authorize(Roles = "ADMIN")]  // <-- ĐÚNG (Phải viết hoa giống DB)
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllOrders()
         {
             var orders = await _orderService.GetAllOrdersAsync();
@@ -154,33 +128,31 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(orderDtos);
         }
 
-        // 4. CÁC HÀM PHỤ TRỢ (HELPER)
-       
+        private bool IsAdmin()
+        {
+            return User.IsInRole("ADMIN");
+        }
+        // 4. CÁC HÀM PHỤ TRỢ (PRIVATE HELPER)
         private int GetCurrentUserId()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity != null)
             {
-                var userClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                
-                if (userClaim == null) 
-                {
-                    userClaim = identity.FindFirst("UserID");
-                }
+                // 1. Ưu tiên tìm key "userId" (Khớp với JwtService của bạn)
+                var claim = identity.FindFirst("userId");
 
-                if (userClaim != null && int.TryParse(userClaim.Value, out int userId))
+                // 2. Fallback: Tìm các chuẩn khác
+                if (claim == null) claim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                if (claim == null) claim = identity.FindFirst("UserID");
+                if (claim == null) claim = identity.FindFirst("Id");
+
+                if (claim != null && int.TryParse(claim.Value, out int userId))
                 {
                     return userId;
                 }
             }
             return 0;
         }
-
-        private bool IsAdmin()
-        {
-            return User.IsInRole("Admin");
-        }
-
         private OrderResponseDto MapToResponseDto(Order order)
         {
             return new OrderResponseDto
