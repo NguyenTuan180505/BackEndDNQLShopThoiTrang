@@ -12,7 +12,6 @@ namespace ShopThoiTrang.API.Controllers
             if (image == null || image.Length == 0)
                 return BadRequest("Ảnh không hợp lệ");
 
-            // THƯ MỤC FE CHÍNH XÁC THEO MÁY BẠN
             var uploadPath = @"D:\FE_QLTT\FrontEndDNQLShopThoiTrang\public\images";
 
             if (!Directory.Exists(uploadPath))

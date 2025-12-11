@@ -515,6 +515,16 @@
             "description": "OK"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Payments"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Payments/order/{orderId}": {
@@ -702,6 +712,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
@@ -744,6 +762,29 @@
     },
     "/api/Reviews/{id}": {
       "delete": {
+        "tags": [
+          "Reviews"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Reviews/{id}/hide": {
+      "patch": {
         "tags": [
           "Reviews"
         ],
@@ -975,6 +1016,10 @@
         "additionalProperties": false
       },
       "CreatePaymentDto": {
+        "required": [
+          "orderID",
+          "paymentMethod"
+        ],
         "type": "object",
         "properties": {
           "orderID": {
@@ -982,14 +1027,15 @@
             "format": "int32"
           },
           "paymentMethod": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "transactionID": {
             "type": "string",
             "nullable": true
           },
           "amount": {
+            "minimum": 0,
             "type": "number",
             "format": "double"
           }
@@ -997,6 +1043,9 @@
         "additionalProperties": false
       },
       "CreateReviewDto": {
+        "required": [
+          "productID"
+        ],
         "type": "object",
         "properties": {
           "productID": {
@@ -1004,11 +1053,29 @@
             "format": "int32"
           },
           "rating": {
+            "maximum": 5,
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
           "comment": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string",
+            "nullable": true
+          },
+          "imageUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "videoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         },

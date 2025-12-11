@@ -17,6 +17,9 @@ namespace ShopThoiTrang.API.Services.Impl
             _paymentRepo = paymentRepo;
         }
 
+        // ===========================
+        // 1. Create payment
+        // ===========================
         public async Task<PaymentDto> CreateAsync(CreatePaymentDto dto, int userId)
         {
             var order = await _context.Orders
@@ -25,43 +28,67 @@ namespace ShopThoiTrang.API.Services.Impl
             if (order == null)
                 throw new Exception("Order không tồn tại hoặc không thuộc về bạn");
 
+            // Giữ nguyên mặc định Status="Success" & PaymentDate = DateTime.Now
             var payment = new Payment
             {
                 OrderID = dto.OrderID,
                 PaymentMethod = dto.PaymentMethod,
                 TransactionID = dto.TransactionID,
-                Amount = dto.Amount,
-                Status = "Success"
+                Amount = dto.Amount
             };
 
             var created = await _paymentRepo.CreateAsync(payment);
-
             return Map(created);
         }
 
-        public async Task<IEnumerable<PaymentDto>> GetByOrderIdAsync(int orderId, int userId)
-        {
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(o => o.OrderID == orderId && o.UserID == userId);
 
-            if (order == null)
-                throw new Exception("Order không tồn tại hoặc không thuộc về bạn");
+        // ===========================
+        // 2. Lấy theo OrderID
+        // ===========================
+        public async Task<IEnumerable<PaymentDto>> GetByOrderIdAsync(int orderId, int userId, bool isAdmin)
+        {
+            if (!isAdmin)
+            {
+                var order = await _context.Orders
+                    .FirstOrDefaultAsync(o => o.OrderID == orderId && o.UserID == userId);
+
+                if (order == null)
+                    throw new Exception("Order không tồn tại hoặc không thuộc về bạn");
+            }
 
             var list = await _paymentRepo.GetByOrderIdAsync(orderId);
             return list.Select(Map);
         }
 
-        public async Task<PaymentDto?> GetByIdAsync(int id, int userId)
+
+        // ===========================
+        // 3. Lấy theo PaymentID
+        // ===========================
+        public async Task<PaymentDto?> GetByIdAsync(int id, int userId, bool isAdmin)
         {
             var payment = await _paymentRepo.GetByIdAsync(id);
             if (payment == null) return null;
 
-            if (payment.Order.UserID != userId)
+            if (!isAdmin && payment.Order != null && payment.Order.UserID != userId)
                 throw new Exception("Bạn không có quyền xem thanh toán này");
 
             return Map(payment);
         }
 
+
+        // ===========================
+        // 4. Admin: lấy tất cả
+        // ===========================
+        public async Task<IEnumerable<PaymentDto>> GetAllAsync()
+        {
+            var list = await _paymentRepo.GetAllAsync();
+            return list.Select(Map);
+        }
+
+
+        // ===========================
+        // Mapping DTOs
+        // ===========================
         private PaymentDto Map(Payment p)
         {
             return new PaymentDto

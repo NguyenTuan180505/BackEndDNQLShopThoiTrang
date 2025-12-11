@@ -6,7 +6,13 @@ namespace ShopThoiTrang.API.Repositories
     {
         Task<Review> CreateAsync(Review review);
         Task<Review?> GetByIdAsync(int id);
+
+        // Public: review không bị ẩn
         Task<IEnumerable<Review>> GetByProductAsync(int productId);
+
+        // Admin: bao gồm review ẩn
+        Task<IEnumerable<Review>> GetAllForProductAdminAsync(int productId);
+
         void Delete(Review review);
         Task SaveChangesAsync();
     }
