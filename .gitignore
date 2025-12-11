@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Visual Studio
 .vs/
 
@@ -31,3 +32,15 @@ project.fragment.lock.json
 *.tmp
 *.bak
 *.temp
+=======
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+>>>>>>> 69f627d5c29a2d5e3eda30d6966661a4e01c938e
