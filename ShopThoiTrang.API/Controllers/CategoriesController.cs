@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopThoiTrang.API.Dtos.Categories;
 using ShopThoiTrang.API.Services;
 
@@ -15,6 +16,7 @@ namespace ShopThoiTrang.API.Controllers
             _service = service;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -22,6 +24,7 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(data);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -32,7 +35,7 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(category);
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public async Task<IActionResult> Create(CategoryCreateDto dto)
         {
@@ -40,6 +43,7 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, CategoryUpdateDto dto)
         {
@@ -51,7 +55,7 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(new { message = "Cập nhật thành công" });
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
