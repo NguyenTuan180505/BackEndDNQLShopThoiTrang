@@ -23,7 +23,7 @@ namespace ShopThoiTrang.API.Services.Impl
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim("userId", user.UserID.ToString()),
-                new Claim(ClaimTypes.Role, user.Role?.RoleName ?? "CUSTOMER")
+                new Claim(ClaimTypes.Role, user.Role?.RoleName ?? "Customer")
             };
 
             var token = new JwtSecurityToken(

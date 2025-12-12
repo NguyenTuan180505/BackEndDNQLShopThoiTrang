@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopThoiTrang.API.Dtos.Auth;
-using ShopThoiTrang.API.Models;
 using ShopThoiTrang.API.Services;
-using ShopThoiTrang.API.Services.Impl; // Vì bạn đang để JwtService ở đây
+using ShopThoiTrang.API.Services.Auth;
 
 namespace ShopThoiTrang.API.Controllers
 {
@@ -10,24 +9,23 @@ namespace ShopThoiTrang.API.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
-        private readonly JwtService _jwt; // Giữ nguyên như bạn đang có
+        private readonly IAuthService _authService;
 
-        // Inject đúng 2 thằng bạn đã đăng ký trong Program.cs
-        public AuthController(IUserService userService, JwtService jwt)
+        public AuthController(IAuthService authService)
         {
-            _userService = userService;
-            _jwt = jwt;
+            _authService = authService;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto dto)
+        public async Task<IActionResult> Register(
+            [FromServices] IUserService userService,
+            RegisterDto dto)
         {
-            var existing = await _userService.GetByEmail(dto.Email);
+            var existing = await userService.GetByEmail(dto.Email);
             if (existing != null)
                 return BadRequest("Email đã tồn tại.");
 
-            var user = await _userService.Register(new User
+            var user = await userService.Register(new Models.User
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
@@ -37,14 +35,19 @@ namespace ShopThoiTrang.API.Controllers
             return Ok(new { message = "Đăng ký thành công", userId = user.UserID });
         }
 
+        // 🔐 BƯỚC 1: LOGIN → GỬI OTP
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
-            var user = await _userService.GetByEmail(dto.Email);
-            if (user == null || !_userService.CheckPassword(user.PasswordHash!, dto.Password))
-                return Unauthorized("Sai email hoặc mật khẩu.");
+            await _authService.SendOtpAfterLoginAsync(dto.Email, dto.Password);
+            return Ok("OTP đã được gửi về email");
+        }
 
-            var token = _jwt.GenerateToken(user);
+        // 🔐 BƯỚC 2: VERIFY OTP → TRẢ JWT
+        [HttpPost("verify-otp")]
+        public async Task<IActionResult> VerifyOtp(VerifyOtpDto dto)
+        {
+            var token = await _authService.VerifyOtpAsync(dto.Email, dto.Otp);
             return Ok(new { token });
         }
     }

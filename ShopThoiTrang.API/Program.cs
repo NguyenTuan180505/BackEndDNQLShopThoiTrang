@@ -9,6 +9,8 @@ using ShopThoiTrang.API.Services;
 using ShopThoiTrang.API.Services.Impl;
 using System.Text;
 using System.Text.Json.Serialization;
+using ShopThoiTrang.API.Services.Auth;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +33,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();      
 builder.Services.AddScoped<IReviewService, ReviewService>();         
 builder.Services.AddScoped<ICategoryService, CategoryService>();     
-builder.Services.AddScoped<JwtService>();                           
+builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<EmailService>();
+
 
 // 3. Cấu hình CORS
 builder.Services.AddCors(options =>
