@@ -155,26 +155,31 @@ namespace ShopThoiTrang.API.Controllers
         }
 
         // 4. CÁC HÀM PHỤ TRỢ (HELPER)
-       
+
         private int GetCurrentUserId()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
+
             if (identity != null)
             {
-                var userClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
-                
-                if (userClaim == null) 
-                {
+                // 1. Token mới dùng "userId"
+                var userClaim = identity.FindFirst("UserID");
+
+                // 2. Token cũ dùng "UserID"
+                if (userClaim == null)
                     userClaim = identity.FindFirst("UserID");
-                }
+
+                // 3. Một số hệ thống dùng NameIdentifier
+                if (userClaim == null)
+                    userClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
                 if (userClaim != null && int.TryParse(userClaim.Value, out int userId))
-                {
                     return userId;
-                }
             }
+
             return 0;
         }
+
 
         private bool IsAdmin()
         {
