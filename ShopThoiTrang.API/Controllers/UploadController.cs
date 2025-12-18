@@ -12,7 +12,7 @@ namespace ShopThoiTrang.API.Controllers
             if (image == null || image.Length == 0)
                 return BadRequest("Ảnh không hợp lệ");
 
-            var uploadPath = @"D:\FE_QLTT\FrontEndDNQLShopThoiTrang\public\images";
+            var uploadPath = @"D:\react.js\FrontEndDNQLShopThoiTrang\public\images";
 
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);

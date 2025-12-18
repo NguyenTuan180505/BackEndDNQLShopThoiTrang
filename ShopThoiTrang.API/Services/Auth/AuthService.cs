@@ -61,7 +61,9 @@ namespace ShopThoiTrang.API.Services.Auth
             otpRecord.IsUsed = true;
             await _context.SaveChangesAsync();
 
-            var user = await _context.Users.FirstAsync(x => x.Email == email);
+            var user = await _context.Users
+                .Include(u => u.Role)  // ← CHỈ CẦN THÊM DÒNG NÀY
+                .FirstAsync(x => x.Email == email);
             return _jwtService.GenerateToken(user);
         }
     }

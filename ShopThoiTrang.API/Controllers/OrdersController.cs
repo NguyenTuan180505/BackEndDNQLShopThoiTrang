@@ -133,7 +133,7 @@ namespace ShopThoiTrang.API.Controllers
 
         // PUT: api/orders/{id}/status (Admin cập nhật trạng thái)
         [HttpPut("{id}/status")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderUpdateStatusDto dto)
         {
             var result = await _orderService.UpdateOrderStatusAsync(id, dto.OrderStatus);
@@ -146,7 +146,7 @@ namespace ShopThoiTrang.API.Controllers
 
         // GET: api/orders (Admin xem tất cả)
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetAllOrders()
         {
             var orders = await _orderService.GetAllOrdersAsync();
