@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShopThoiTrang.API.Dtos.Oder;
 using ShopThoiTrang.API.Dtos.Order;
 using ShopThoiTrang.API.Models;
 using ShopThoiTrang.API.Services;
@@ -208,5 +209,31 @@ namespace ShopThoiTrang.API.Controllers
                 }).ToList() ?? new List<OrderItemResponseDto>()
             };
         }
+
+        [HttpPost("from-cart-selected")]
+        public async Task<IActionResult> CreateFromSelectedCart(
+    [FromBody] CreateOrderFromSelectedCartDto dto)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                if (userId == 0) return Unauthorized();
+
+                var order = await _orderService
+                    .CreateOrderFromSelectedCartAsync(userId, dto);
+
+                return Ok(new
+                {
+                    Message = "Đặt hàng thành công",
+                    OrderId = order.OrderID,
+                    Total = order.TotalAmount
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
+        }
+
     }
 }

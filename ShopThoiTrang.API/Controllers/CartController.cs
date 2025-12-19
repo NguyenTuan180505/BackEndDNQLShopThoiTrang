@@ -47,9 +47,16 @@ namespace ShopThoiTrang.API.Controllers
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateCartRequest request)
         {
-            var cart = await _cartService.UpdateItemAsync(id, request.Quantity);
-            if (cart == null) return NotFound("Cart item not found");
-            return Ok(cart);
+            var success = await _cartService.UpdateItemAsync(id, request.Quantity);
+            if (!success) return NotFound("Cart item not found");
+
+            return Ok(new
+            {
+                success = true,
+                message = "Cập nhật thành công",
+                cartItemId = id,
+                quantity = request.Quantity
+            });
         }
 
 

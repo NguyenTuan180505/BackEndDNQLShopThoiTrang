@@ -1,4 +1,5 @@
-﻿using ShopThoiTrang.API.Dtos.Order;
+﻿using ShopThoiTrang.API.Dtos.Oder;
+using ShopThoiTrang.API.Dtos.Order;
 using ShopThoiTrang.API.Models;
 using ShopThoiTrang.API.Repositories;
 using ShopThoiTrang.API.Services;
@@ -198,5 +199,73 @@ namespace ShopThoiTrang.API.Services.Impl
             _orderRepository.UpdateOrder(order);
             return await _orderRepository.SaveChangesAsync();
         }
+
+        public async Task<Order> CreateOrderFromSelectedCartAsync(
+    int userId,
+    CreateOrderFromSelectedCartDto dto)
+        {
+            if (dto.CartItemIds == null || !dto.CartItemIds.Any())
+                throw new Exception("Chưa chọn sản phẩm nào.");
+
+            var cart = await _cartService.GetCartAsync(userId);
+
+            var selectedItems = cart.CartItems
+                .Where(ci => dto.CartItemIds.Contains(ci.CartItemID))
+                .ToList();
+
+            if (!selectedItems.Any())
+                throw new Exception("Không tìm thấy sản phẩm được chọn trong giỏ.");
+
+            var order = new Order
+            {
+                UserID = userId,
+                OrderDate = DateTime.Now,
+                ShippingAddress = dto.ShippingAddress,
+                PaymentMethod = dto.PaymentMethod,
+                OrderStatus = "Processing",
+                PaymentStatus = "Pending",
+                OrderItems = new List<OrderItem>()
+            };
+
+            decimal total = 0;
+
+            foreach (var cartItem in selectedItems)
+            {
+                var product = await _productRepository.GetByIdAsync(cartItem.ProductID);
+
+                if (product == null || !product.IsActive)
+                    throw new Exception($"Sản phẩm {cartItem.ProductID} không khả dụng.");
+
+                if (product.Stock < cartItem.Quantity)
+                    throw new Exception($"Sản phẩm {product.ProductName} không đủ hàng.");
+
+                var orderItem = new OrderItem
+                {
+                    ProductID = product.ProductID,
+                    Quantity = cartItem.Quantity,
+                    UnitPrice = product.Price
+                };
+
+                order.OrderItems.Add(orderItem);
+                total += orderItem.Quantity * orderItem.UnitPrice;
+
+                product.Stock -= cartItem.Quantity;
+                await _productRepository.UpdateAsync(product);
+            }
+
+            order.TotalAmount = total;
+
+            await _orderRepository.AddOrderAsync(order);
+            await _orderRepository.SaveChangesAsync();
+
+            foreach (var cartItemId in dto.CartItemIds)
+            {
+                await _cartService.RemoveItemAsync(cartItemId);
+            }
+
+
+            return order;
+        }
+
     }
 }

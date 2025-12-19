@@ -8,7 +8,7 @@ public interface ICartService
     Task<Cart> GetCartAsync(int userId);
     Task<Cart> AddToCartAsync(int userId, int productId, int quantity);
     //jWT
-    Task<Cart> UpdateItemAsync(int itemId, int quantity);
+    Task<bool> UpdateItemAsync(int itemId, int quantity);
 
     //JWT
     Task<bool> RemoveItemAsync(int itemId);
@@ -80,19 +80,19 @@ public class CartService : ICartService
     }
     //JWT
     // 🔥 Cập nhật số lượng
-    public async Task<Cart> UpdateItemAsync(int itemId, int quantity)
+    public async Task<bool> UpdateItemAsync(int itemId, int quantity)
     {
         var item = await _context.CartItems.FindAsync(itemId);
-        if (item == null) return null;
+        if (item == null) return false;
 
         item.Quantity = quantity;
         await _context.SaveChangesAsync();
 
-        return await GetCartAsync(item.CartID);
+        return true;
     }
 
     //JWT
-     //🔥 Xóa 1 sản phẩm
+    //🔥 Xóa 1 sản phẩm
     public async Task<bool> RemoveItemAsync(int itemId)
     {
         var item = await _context.CartItems.FindAsync(itemId);
