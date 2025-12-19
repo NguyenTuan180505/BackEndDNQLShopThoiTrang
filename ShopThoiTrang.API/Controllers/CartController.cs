@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using ShopThoiTrang.API.Services;
+using System.Security.Claims;
 
 namespace ShopThoiTrang.API.Controllers
 {
-
-    //private readonly AppDbContext context;
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Customer")]
+    [Authorize]
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
@@ -19,42 +16,42 @@ namespace ShopThoiTrang.API.Controllers
         {
             _cartService = cartService;
         }
-        //Jwt
-        //GET api/cart
+
+        // ================== GET CART ==================
         [HttpGet]
         public async Task<IActionResult> GetCart()
         {
-            int userId = int.Parse(User.FindFirst("UserID").Value);
+            var userId = GetCurrentUserId();
+            if (userId == 0) return Unauthorized();
+
             var cart = await _cartService.GetCartAsync(userId);
             return Ok(cart);
         }
 
-
-
-        //Jwt
-        // POST api/cart/add
+        // ================== ADD ==================
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] AddCartRequest request)
         {
-            int userId = int.Parse(User.FindFirst("UserID").Value);
-            var cart = await _cartService.AddToCartAsync(userId, request.ProductID, request.Quantity);
+            var userId = GetCurrentUserId();
+            if (userId == 0) return Unauthorized();
+
+            var cart = await _cartService.AddToCartAsync(
+                userId, request.ProductID, request.Quantity);
+
             return Ok(cart);
         }
 
-
-        //Jwt
-        // PUT api/cart/update/5
+        // ================== UPDATE ==================
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateCartRequest request)
         {
             var cart = await _cartService.UpdateItemAsync(id, request.Quantity);
             if (cart == null) return NotFound("Cart item not found");
+
             return Ok(cart);
         }
 
-
-        //Jwt
-        // DELETE api/cart/remove/5
+        // ================== REMOVE ==================
         [HttpDelete("remove/{id}")]
         public async Task<IActionResult> Remove(int id)
         {
@@ -62,22 +59,36 @@ namespace ShopThoiTrang.API.Controllers
             return result ? Ok("Removed") : NotFound("Item not found");
         }
 
-        //Jwt
-        // DELETE api/cart/clear
+        // ================== CLEAR ==================
         [HttpDelete("clear")]
         public async Task<IActionResult> Clear()
         {
-            int userId = int.Parse(User.FindFirst("UserID").Value);
+            var userId = GetCurrentUserId();
+            if (userId == 0) return Unauthorized();
 
             await _cartService.ClearCartAsync(userId);
-
             return Ok("Cart cleared");
         }
 
+        // ================== HELPER ==================
+        private int GetCurrentUserId()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
 
+            if (identity != null)
+            {
+                var claim = identity.FindFirst("UserID")
+                            ?? identity.FindFirst(ClaimTypes.NameIdentifier);
+
+                if (claim != null && int.TryParse(claim.Value, out int userId))
+                    return userId;
+            }
+
+            return 0;
+        }
     }
 
-    //Jwt
+    // ================== REQUEST DTO ==================
     public class AddCartRequest
     {
         public int ProductID { get; set; }
@@ -88,5 +99,4 @@ namespace ShopThoiTrang.API.Controllers
     {
         public int Quantity { get; set; }
     }
-
 }
