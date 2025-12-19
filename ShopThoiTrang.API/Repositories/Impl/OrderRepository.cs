@@ -39,6 +39,7 @@ namespace ShopThoiTrang.API.Repositories.Impl
             var query = _context.Orders
                 .Include(o => o.User) 
                 .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(status))

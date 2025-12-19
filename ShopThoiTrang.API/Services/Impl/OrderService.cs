@@ -126,7 +126,10 @@ namespace ShopThoiTrang.API.Services.Impl
             return await _orderRepository.GetOrdersByUserAsync(userId);
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync() => await _orderRepository.GetAllOrdersAsync(null);
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync()
+        {
+            return await _orderRepository.GetAllOrdersAsync(null);
+        }
         public async Task<Order?> GetOrderByIdAsync(int id) => await _orderRepository.GetOrderByIdAsync(id);
         public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId) => await _orderRepository.GetOrdersByUserAsync(userId);
 
