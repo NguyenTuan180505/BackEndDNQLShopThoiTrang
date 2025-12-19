@@ -28,18 +28,30 @@ namespace ShopThoiTrang.API.Services.Impl
             if (order == null)
                 throw new Exception("Order không tồn tại hoặc không thuộc về bạn");
 
-            // Giữ nguyên mặc định Status="Success" & PaymentDate = DateTime.Now
+            // Tạo payment
             var payment = new Payment
             {
                 OrderID = dto.OrderID,
                 PaymentMethod = dto.PaymentMethod,
                 TransactionID = dto.TransactionID,
                 Amount = dto.Amount
+                // PaymentDate & Status dùng mặc định
             };
 
-            var created = await _paymentRepo.CreateAsync(payment);
-            return Map(created);
+            // Lưu payment
+            await _paymentRepo.CreateAsync(payment);
+
+            // 👉 CẬP NHẬT TRẠNG THÁI ORDER
+            order.PaymentStatus = "Paid";
+
+            // (tuỳ chọn) nếu muốn đổi luôn trạng thái đơn
+            // order.OrderStatus = "Completed";
+
+            await _context.SaveChangesAsync();
+
+            return Map(payment);
         }
+
 
 
         // ===========================
