@@ -127,7 +127,10 @@ namespace ShopThoiTrang.API.Services.Impl
             return await _orderRepository.GetOrdersByUserAsync(userId);
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync() => await _orderRepository.GetAllOrdersAsync(null);
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync()
+        {
+            return await _orderRepository.GetAllOrdersAsync(null);
+        }
         public async Task<Order?> GetOrderByIdAsync(int id) => await _orderRepository.GetOrderByIdAsync(id);
         public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(int userId) => await _orderRepository.GetOrdersByUserAsync(userId);
 
@@ -169,10 +172,25 @@ namespace ShopThoiTrang.API.Services.Impl
             var order = await _orderRepository.GetOrderByIdAsync(id);
             if (order == null) return false;
 
+            // Cập nhật trạng thái đơn hàng
             order.OrderStatus = status;
+            if(order.PaymentMethod == "COD")
+            {
+                if (status == "Delivered")
+                {
+                    order.PaymentStatus = "Paid";
+                }
+                else
+                {
+                    order.PaymentStatus = "Pending";
+                }
+            }
+            // 👉 Nếu đã giao & COD → thanh toán thành Paid
+            
             _orderRepository.UpdateOrder(order);
             return await _orderRepository.SaveChangesAsync();
         }
+
 
         // --- HỦY ĐƠN HÀNG (SỬA LẠI ĐỂ GỌI UpdateAsync) ---
         public async Task<bool> CancelOrderAsync(int id)

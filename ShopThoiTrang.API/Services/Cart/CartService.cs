@@ -1,9 +1,8 @@
-﻿using System.Text.Json.Nodes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShopThoiTrang.API.Data;
 using ShopThoiTrang.API.Models;
 
-public interface ICartService
+namespace ShopThoiTrang.API.Services
 {
     Task<Cart> GetCartAsync(int userId);
     Task<Cart> AddToCartAsync(int userId, int productId, int quantity);
@@ -22,50 +21,46 @@ public class CartService : ICartService
 
     public CartService(AppDbContext context)
     {
-        _context = context;
-    }
+        private readonly AppDbContext _context;
 
-    // 🔥 Lấy giỏ hoặc tạo mới
-    public async Task<Cart> GetCartAsync(int userId)
-    {
-        var cart = await _context.Carts
-            .Include(c => c.CartItems)
-            .ThenInclude(ci => ci.Product)
-            .FirstOrDefaultAsync(c => c.UserID == userId && c.IsActive);
-
-        if (cart == null)
+        public CartService(AppDbContext context)
         {
-            cart = new Cart
+            _context = context;
+        }
+
+        public async Task<Cart> GetCartAsync(int userId)
+        {
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(c => c.UserID == userId && c.IsActive);
+
+            if (cart == null)
             {
-                UserID = userId,
-                CreatedAt = DateTime.Now,
-                IsActive = true
-            };
+                cart = new Cart
+                {
+                    UserID = userId,
+                    CreatedAt = DateTime.Now,
+                    IsActive = true
+                };
 
-            _context.Carts.Add(cart);
-            await _context.SaveChangesAsync();
+                _context.Carts.Add(cart);
+                await _context.SaveChangesAsync();
+            }
+
+            return cart;
         }
 
-        return cart;
-    }
-
-    // 🔥 Thêm sản phẩm (kiểm tra trùng)
-    public async Task<Cart> AddToCartAsync(int userId, int productId, int quantity)
-    {
-        var cart = await GetCartAsync(userId);
-
-        var product = await _context.Products.FindAsync(productId);
-        if (product == null) throw new Exception("Product not found");
-
-        var item = cart.CartItems?.FirstOrDefault(i => i.ProductID == productId);
-
-        if (item != null)
+        public async Task<Cart> AddToCartAsync(int userId, int productId, int quantity)
         {
-            item.Quantity += quantity;
-        }
-        else
-        {
-            item = new CartItem
+            var cart = await GetCartAsync(userId);
+
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null) throw new Exception("Product not found");
+
+            var item = cart.CartItems.FirstOrDefault(i => i.ProductID == productId);
+
+            if (item != null)
             {
                 CartID = cart.CartID,
                 ProductID = productId,
@@ -85,8 +80,9 @@ public class CartService : ICartService
         var item = await _context.CartItems.FindAsync(itemId);
         if (item == null) return false;
 
-        item.Quantity = quantity;
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return await GetCartAsync(userId);
+        }
 
         return true;
     }
@@ -98,21 +94,27 @@ public class CartService : ICartService
         var item = await _context.CartItems.FindAsync(itemId);
         if (item == null) return false;
 
-        _context.CartItems.Remove(item);
-        await _context.SaveChangesAsync();
-        return true;
+            var cart = await _context.Carts.FindAsync(item.CartID);
+            return await GetCartAsync(cart.UserID);
+        }
+
+        public async Task<bool> RemoveItemAsync(int itemId)
+        {
+            var item = await _context.CartItems.FindAsync(itemId);
+            if (item == null) return false;
+
+            _context.CartItems.Remove(item);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> ClearCartAsync(int userId)
+        {
+            var cart = await GetCartAsync(userId);
+
+            _context.CartItems.RemoveRange(cart.CartItems);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
-
-
-    // 🔥 Xóa toàn bộ giỏ
-    public async Task<bool> ClearCartAsync(int userId)
-    {
-        var cart = await GetCartAsync(userId);
-
-        _context.CartItems.RemoveRange(cart.CartItems);
-        await _context.SaveChangesAsync();
-
-        return true;
-    }
-
 }
