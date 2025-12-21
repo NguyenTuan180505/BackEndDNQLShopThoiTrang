@@ -4,7 +4,22 @@ using ShopThoiTrang.API.Models;
 
 namespace ShopThoiTrang.API.Services
 {
-    public class CartService : ICartService
+    Task<Cart> GetCartAsync(int userId);
+    Task<Cart> AddToCartAsync(int userId, int productId, int quantity);
+    //jWT
+    Task<bool> UpdateItemAsync(int itemId, int quantity);
+
+    //JWT
+    Task<bool> RemoveItemAsync(int itemId);
+
+    Task<bool> ClearCartAsync(int userId);
+}
+
+public class CartService : ICartService
+{
+    private readonly AppDbContext _context;
+
+    public CartService(AppDbContext context)
     {
         private readonly AppDbContext _context;
 
@@ -47,31 +62,37 @@ namespace ShopThoiTrang.API.Services
 
             if (item != null)
             {
-                item.Quantity += quantity;
-            }
-            else
-            {
-                item = new CartItem
-                {
-                    CartID = cart.CartID,
-                    ProductID = productId,
-                    Quantity = quantity,
-                    UnitPrice = product.Price
-                };
-                _context.CartItems.Add(item);
-            }
+                CartID = cart.CartID,
+                ProductID = productId,
+                Quantity = quantity,
+                UnitPrice = product.Price
+            };
+            _context.CartItems.Add(item);
+        }
+
+        await _context.SaveChangesAsync();
+        return await GetCartAsync(userId);
+    }
+    //JWT
+    // 🔥 Cập nhật số lượng
+    public async Task<bool> UpdateItemAsync(int itemId, int quantity)
+    {
+        var item = await _context.CartItems.FindAsync(itemId);
+        if (item == null) return false;
 
             await _context.SaveChangesAsync();
             return await GetCartAsync(userId);
         }
 
-        public async Task<Cart?> UpdateItemAsync(int itemId, int quantity)
-        {
-            var item = await _context.CartItems.FindAsync(itemId);
-            if (item == null) return null;
+        return true;
+    }
 
-            item.Quantity = quantity;
-            await _context.SaveChangesAsync();
+    //JWT
+    //🔥 Xóa 1 sản phẩm
+    public async Task<bool> RemoveItemAsync(int itemId)
+    {
+        var item = await _context.CartItems.FindAsync(itemId);
+        if (item == null) return false;
 
             var cart = await _context.Carts.FindAsync(item.CartID);
             return await GetCartAsync(cart.UserID);

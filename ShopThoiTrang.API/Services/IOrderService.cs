@@ -1,4 +1,5 @@
-﻿using ShopThoiTrang.API.Dtos.Order;
+﻿using ShopThoiTrang.API.Dtos.Oder;
+using ShopThoiTrang.API.Dtos.Order;
 using ShopThoiTrang.API.Models;
 
 namespace ShopThoiTrang.API.Services
@@ -18,5 +19,6 @@ namespace ShopThoiTrang.API.Services
         Task<Order> CreateOrderDirectAsync(int userId, CreateOrderDirectDto dto);
 
         Task<Order?> CreateOrderAsync(Order order);
+        Task<Order> CreateOrderFromSelectedCartAsync(int userId,CreateOrderFromSelectedCartDto dto);
     }
 }
