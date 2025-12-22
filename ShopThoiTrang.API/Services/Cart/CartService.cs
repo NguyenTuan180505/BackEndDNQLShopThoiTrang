@@ -1,53 +1,38 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ShopThoiTrang.API.Data;
-using ShopThoiTrang.API.Models;
+﻿using ShopThoiTrang.API.Models;
+using ShopThoiTrang.API.Repositories;
 
 namespace ShopThoiTrang.API.Services
 {
     public class CartService : ICartService
     {
-        private readonly AppDbContext _context;
+        private readonly ICartRepository _repo;
 
-        public CartService(AppDbContext context)
+        public CartService(ICartRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        // ================= GET CART =================
         public async Task<Cart> GetCartAsync(int userId)
         {
-            var cart = await _context.Carts
-                .Include(c => c.CartItems)
-                .ThenInclude(i => i.Product)
-                .FirstOrDefaultAsync(c => c.UserID == userId && c.IsActive);
+            var cart = await _repo.GetActiveCartAsync(userId);
 
             if (cart == null)
             {
-                cart = new Cart
-                {
-                    UserID = userId,
-                    CreatedAt = DateTime.Now,
-                    IsActive = true
-                };
-
-                _context.Carts.Add(cart);
-                await _context.SaveChangesAsync();
+                cart = await _repo.CreateCartAsync(userId);
             }
 
             return cart;
         }
 
-        // ================= ADD TO CART =================
         public async Task<Cart> AddToCartAsync(int userId, int productId, int quantity)
         {
             var cart = await GetCartAsync(userId);
 
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _repo.GetProductAsync(productId);
             if (product == null)
                 throw new Exception("Product not found");
 
-            var item = cart.CartItems
-                .FirstOrDefault(i => i.ProductID == productId);
+            var item = await _repo.GetCartItemAsync(cart.CartID, productId);
 
             if (item != null)
             {
@@ -62,42 +47,39 @@ namespace ShopThoiTrang.API.Services
                     Quantity = quantity,
                     UnitPrice = product.Price
                 };
-                _context.CartItems.Add(item);
+                await _repo.AddCartItemAsync(item);
             }
 
-            await _context.SaveChangesAsync();
+            await _repo.SaveAsync();
             return await GetCartAsync(userId);
         }
 
-        // ================= UPDATE ITEM =================
         public async Task<bool> UpdateItemAsync(int itemId, int quantity)
         {
-            var item = await _context.CartItems.FindAsync(itemId);
+            var item = await _repo.GetCartItemByIdAsync(itemId);
             if (item == null) return false;
 
             item.Quantity = quantity;
-            await _context.SaveChangesAsync();
+            await _repo.SaveAsync();
             return true;
         }
 
-        // ================= REMOVE ITEM =================
         public async Task<bool> RemoveItemAsync(int itemId)
         {
-            var item = await _context.CartItems.FindAsync(itemId);
+            var item = await _repo.GetCartItemByIdAsync(itemId);
             if (item == null) return false;
 
-            _context.CartItems.Remove(item);
-            await _context.SaveChangesAsync();
+            await _repo.RemoveCartItemAsync(item);
+            await _repo.SaveAsync();
             return true;
         }
 
-        // ================= CLEAR CART =================
         public async Task<bool> ClearCartAsync(int userId)
         {
             var cart = await GetCartAsync(userId);
 
-            _context.CartItems.RemoveRange(cart.CartItems);
-            await _context.SaveChangesAsync();
+            await _repo.RemoveCartItemsAsync(cart.CartItems);
+            await _repo.SaveAsync();
             return true;
         }
     }

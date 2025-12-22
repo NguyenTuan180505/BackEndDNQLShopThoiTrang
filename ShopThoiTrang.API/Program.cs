@@ -23,8 +23,8 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();      
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>(); 
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();   
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); 
-
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 // Nhóm Service
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();             
