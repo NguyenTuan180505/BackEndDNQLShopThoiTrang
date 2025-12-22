@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShopThoiTrang.API.Dtos.Cart;
 using ShopThoiTrang.API.Services;
 using System.Security.Claims;
 
@@ -94,15 +95,4 @@ namespace ShopThoiTrang.API.Controllers
         }
     }
 
-    // ================== REQUEST DTO ==================
-    public class AddCartRequest
-    {
-        public int ProductID { get; set; }
-        public int Quantity { get; set; }
-    }
-
-    public class UpdateCartRequest
-    {
-        public int Quantity { get; set; }
-    }
 }

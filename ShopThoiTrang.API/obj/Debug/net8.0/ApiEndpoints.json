@@ -67,7 +67,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ShopThoiTrang.API.Controllers.AddCartRequest",
+        "Type": "ShopThoiTrang.API.Dtos.Cart.AddCartRequest",
         "IsRequired": true
       }
     ],
@@ -114,7 +114,7 @@
       },
       {
         "Name": "request",
-        "Type": "ShopThoiTrang.API.Controllers.UpdateCartRequest",
+        "Type": "ShopThoiTrang.API.Dtos.Cart.UpdateCartRequest",
         "IsRequired": true
       }
     ],
@@ -289,6 +289,22 @@
       {
         "Name": "dto",
         "Type": "ShopThoiTrang.API.Dtos.Order.CreateOrderFromCartDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShopThoiTrang.API.Controllers.OrdersController",
+    "Method": "CreateFromSelectedCart",
+    "RelativePath": "api/Orders/from-cart-selected",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ShopThoiTrang.API.Dtos.Oder.CreateOrderFromSelectedCartDto",
         "IsRequired": true
       }
     ],
